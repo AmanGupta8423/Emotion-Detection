@@ -44,29 +44,29 @@ stages:
       nfiles: 2
     - path: src/features/feature_engineering.py
       hash: md5
-      md5: 438f7bd29463d70a6ae9a36d9d871422
-      size: 4043
+      md5: 893fb504d9d37958659ad945aa0abc70
+      size: 4035
     params:
       params.yaml:
         feature_engineering.max_features: 100
     outs:
     - path: data/processed
       hash: md5
-      md5: 515abd20121f0cd750306a1565fb17ca.dir
-      size: 4535097
+      md5: 6cd6f9011b4c7c495180365aa811b5f5.dir
+      size: 2107000
       nfiles: 2
   model_building:
     cmd: python src/model/model_building.py
     deps:
     - path: data/processed
       hash: md5
-      md5: 515abd20121f0cd750306a1565fb17ca.dir
-      size: 4535097
+      md5: 6cd6f9011b4c7c495180365aa811b5f5.dir
+      size: 2107000
       nfiles: 2
     - path: src/model/model_building.py
       hash: md5
-      md5: b0181f40c5ce081a00a45b8c27e097c3
-      size: 3330
+      md5: dcb5d8cc950799eac328ee50fa0a889b
+      size: 3328
     params:
       params.yaml:
         model_building.learning_rate: 0.1
@@ -75,26 +75,26 @@ stages:
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: 8ffd847ee0faf915f425d046bb2962bb
-      size: 408218
+      md5: 142129ebcebc3718252a181753c67d30
+      size: 372544
   model_evaluation:
     cmd: python src/model/model_evaluation.py
     deps:
     - path: data/processed
       hash: md5
-      md5: 515abd20121f0cd750306a1565fb17ca.dir
-      size: 4535097
+      md5: 6cd6f9011b4c7c495180365aa811b5f5.dir
+      size: 2107000
       nfiles: 2
     - path: models/model.pkl
       hash: md5
-      md5: 8ffd847ee0faf915f425d046bb2962bb
-      size: 408218
+      md5: 142129ebcebc3718252a181753c67d30
+      size: 372544
     - path: src/model/model_evaluation.py
       hash: md5
-      md5: 937711842d8e96e14464654f863ffa85
-      size: 3733
+      md5: d5930fb29c7c76c13b153ba15ad2c0ab
+      size: 3731
     outs:
     - path: reports/metrics.json
       hash: md5
-      md5: 786d90abb291dae5d5ac7e63f081ab05
-      size: 185
+      md5: bac9c4019fda30152beaf5f4f61ad454
+      size: 186
