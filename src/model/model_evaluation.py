@@ -5,6 +5,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import json
 import logging
 import os
+from dvclive import Live
 
 logger = logging.getLogger('model_evaluation')
 logger.setLevel(logging.DEBUG)
@@ -19,6 +20,7 @@ file_handler.setFormatter(formatter)
 
 logger.addHandler(console_handler)
 logger.addHandler(file_handler)
+
 
 def load_model(model_path: str):
     'Load the trained model from a pickle file.'
@@ -68,6 +70,13 @@ def evaluate_model(model, X_test: np.ndarray, y_test: np.ndarray) -> dict:
             "f1_score": f1,
             "roc_auc": roc_auc
         }
+
+        with Live(save_dvc_exp = True) as live:
+            live.log_metric('accuracy', accuracy)
+            live.log_metric("precision", precision)
+            live.log_metric("recall", recall)
+            live.log_metric("f1_score", f1)
+            live.log_metric("roc_auc", roc_auc)
 
         logger.debug('Model evaluation metrics calculated successfully.')
         return metrics_dic

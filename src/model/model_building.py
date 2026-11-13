@@ -5,6 +5,8 @@ import xgboost as xgb
 import yaml
 import logging
 import os
+from dvclive import Live
+
 
 logger = logging.getLogger('model_building')
 logger.setLevel(logging.DEBUG)
@@ -25,6 +27,12 @@ def load_params(params_path: str) -> dict:
     try:
         params = yaml.safe_load(open(params_path,'r'))
         logger.debug('Parameters retrieved from %s', params_path)
+
+        with Live(save_dvc_exp = True) as live:
+            for param , value in params.items():
+                for key,val in value.items():
+                    live.log_param(f'{param}_{key}',val)
+
         return params
     except FileNotFoundError as e:
         logger.error('File not found: %s', params_path)
