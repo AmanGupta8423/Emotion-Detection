@@ -1,0 +1,4 @@
+[core]
+    remote = myremote
+['remote "myremote"']
+    url = s3://aman-emotion-detection-157328692976-ap-south-2-an
